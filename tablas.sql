@@ -36,7 +36,6 @@ BEGIN
         fecha DATE NOT NULL,
         id_carrera INT NOT NULL,
         PRIMARY KEY (carnet),
-        UNIQUE INDEX estudiante__idx (id_carrera),
         FOREIGN KEY (id_carrera) REFERENCES carrera (id_carrera)
     );
 
@@ -62,7 +61,6 @@ BEGIN
         codigo_curso INT NOT NULL,
         siif INT NOT NULL,
         PRIMARY KEY (id_habilitado),
-        UNIQUE INDEX cursohabilitado__idx (siif),
         FOREIGN KEY (codigo_curso) REFERENCES curso (codigo_curso),
         FOREIGN KEY (siif) REFERENCES docente (siif)
     );
@@ -74,7 +72,6 @@ BEGIN
         hora TIME NOT NULL,
         id_habilitado INT NOT NULL,
         PRIMARY KEY (id_acta),
-        UNIQUE INDEX acta__idx (id_habilitado),
         FOREIGN KEY (id_habilitado) REFERENCES cursohabilitado (id_habilitado)
     );
 

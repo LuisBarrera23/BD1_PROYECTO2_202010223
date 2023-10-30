@@ -1,5 +1,4 @@
 -- REGISTRO DE CARRERAS
-INSERT 
 CALL crearCarrera('Ingenieria Civil');       -- 1  VALIDAR QUE LES QUEDE ESTE ID EN LA CARRERA CORRESPONDIENTE
 CALL crearCarrera('Ingenieria Industrial');  -- 2  VALIDAR QUE LES QUEDE ESTE ID EN LA CARRERA CORRESPONDIENTE
 CALL crearCarrera('Ingenieria Sistemas');    -- 3  VALIDAR QUE LES QUEDE ESTE ID EN LA CARRERA CORRESPONDIENTE
@@ -39,8 +38,8 @@ CALL registrarEstudiante(201710161, 'ESTUDIANTE','CIVIL RANDOM','20-08-1995','es
 -- AGREGAR CURSO
 -- aqui se debe de agregar el AREA COMUN a carrera
 -- Insertar el registro con id 0
-INSERT INTO carrera (id,nombre) VALUES (0,'Area Comun');
-UPDATE carrera SET id = 0 WHERE id = LAST_INSERT_ID();
+INSERT INTO carrera (id_carrera,nombre) VALUES (0,'Area Comun');
+UPDATE carrera SET id_carrera = 0 WHERE id_carrera = LAST_INSERT_ID();
 -- AREA COMUN
 CALL crearCurso(0006,'Idioma Tecnico 1',0,7,0,false); 
 CALL crearCurso(0007,'Idioma Tecnico 2',0,7,0,false);
@@ -75,3 +74,7 @@ CALL crearCurso(422,'Curso Electronica 2',4,4,4,true);
 CALL crearCurso(423,'Curso Electronica 3',8,4,4,false);
 CALL crearCurso(424,'Curso Electronica 4',12,4,4,true);
 CALL crearCurso(425,'Curso Electronica 5',16,4,4,true);
+
+
+
+CALL habilitarCurso(960,"VJ",5,10,"F");
