@@ -88,7 +88,7 @@ BEGIN
     CREATE TABLE IF NOT EXISTS horario (
         id_horario INT AUTO_INCREMENT NOT NULL,
         dia INT NOT NULL,
-        hora TIME NOT NULL,
+        hora VARCHAR(30) NOT NULL,
         id_habilitado INT NOT NULL,
         PRIMARY KEY (id_horario),
         FOREIGN KEY (id_habilitado) REFERENCES cursohabilitado (id_habilitado)

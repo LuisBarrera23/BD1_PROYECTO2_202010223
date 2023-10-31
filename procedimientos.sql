@@ -136,6 +136,11 @@ CREATE PROCEDURE habilitarCurso(
 BEGIN
     DECLARE cursoExistente INT;
     DECLARE docenteExistente INT;
+    DECLARE p_anio INT;
+    DECLARE p_id_habilitado INT;
+    
+    -- Obtener el año actual
+    SET p_anio = YEAR(CURDATE());
     
     IF NOT validarCiclo(p_ciclo) THEN
         SELECT 'Ciclo no válido';
@@ -150,24 +155,306 @@ BEGIN
         WHERE codigo_curso = p_codigo_curso AND ciclo = p_ciclo AND seccion = p_seccion
     ) THEN
         SELECT 'El curso ya está habilitado en el mismo ciclo y sección';
-    -- Verifica que el docente con el siif exista en la tabla docente
     ELSE
         SELECT siif INTO docenteExistente FROM docente WHERE siif = p_siif;
         
         IF docenteExistente IS NULL THEN
             SELECT 'El docente con ese siif no existe';
-        -- Verifica que el cupo máximo sea un valor entero positivo
         ELSEIF p_cupo_maximo <= 0 THEN
             SELECT 'El cupo máximo debe ser un valor entero positivo';
-        -- Verifica que la sección sea una letra y la guarda en mayúscula
-        ELSEIF LENGTH(p_seccion) <> 1 OR NOT BINARY p_seccion REGEXP '^[A-Za-z]$' THEN
+        ELSEIF LENGTH(p_seccion) <> 1 OR NOT p_seccion REGEXP '^[A-Za-z]$' COLLATE utf8mb4_general_ci THEN
             SELECT 'La sección debe ser una letra';
         ELSE
-            -- Inserta el registro si todas las validaciones son exitosas
             INSERT INTO cursohabilitado (ciclo, cupo_maximo, seccion, anio, codigo_curso, siif)
             VALUES (p_ciclo, p_cupo_maximo, UPPER(p_seccion), p_anio, p_codigo_curso, p_siif);
+            
+            SET p_id_habilitado = LAST_INSERT_ID();
+            
+            INSERT INTO asignado (cantidad, id_habilitado)
+            VALUES (0, p_id_habilitado);
+            
             SELECT 'Curso habilitado con éxito';
         END IF;
     END IF;
 END //
+DELIMITER ;
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE agregarHorario(
+    IN p_id_habilitado INT,
+    IN p_dia INT,
+    IN p_hora VARCHAR(30)
+)
+BEGIN
+
+    IF NOT EXISTS (
+        SELECT * FROM cursohabilitado
+        WHERE id_habilitado = p_id_habilitado
+    ) THEN
+        SELECT 'El id_habilitado no existe en la tabla cursohabilitado';
+    ELSEIF p_dia < 1 OR p_dia > 7 THEN
+        SELECT 'El valor de dia debe estar entre 1 y 7';
+    ELSE
+        -- Insertar el registro en la tabla horario si todas las validaciones son exitosas
+        INSERT INTO horario (dia, hora, id_habilitado)
+        VALUES (p_dia, p_hora, p_id_habilitado);
+        SELECT 'Horario agregado con éxito';
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE asignarCurso(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_seccion CHAR(1),
+    IN p_carnet BIGINT
+)
+BEGIN
+    DECLARE creditos_estudiante INT;
+    DECLARE p_creditos_necesarios INT;
+    DECLARE id_carrera_curso INT;
+    DECLARE cupo_maximo_curso INT;
+    DECLARE id_carrera_estudiante INT;
+    DECLARE cantidad_asignado INT;
+    DECLARE p_id_habilitado INT;
+    
+    IF NOT EXISTS (
+        SELECT * FROM estudiante
+        WHERE carnet = p_carnet
+    ) THEN
+        SELECT 'El estudiante con ese carnet no existe en la tabla estudiante';
+    ELSEIF NOT EXISTS (
+        SELECT *
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso AND anio = YEAR(CURDATE())
+    ) THEN
+        SELECT 'No hay curso habilitado con las características proporcionadas';
+    ELSE
+        -- Obtener el número de créditos del estudiante
+        SELECT creditos, id_carrera INTO creditos_estudiante, id_carrera_estudiante
+        FROM estudiante
+        WHERE carnet = p_carnet;
+        
+        SELECT cupo_maximo, id_habilitado INTO cupo_maximo_curso, p_id_habilitado
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso;
+        
+        -- Obtener creditos_necesarios e id_carrera del curso
+        SELECT creditos_necesarios, id_carrera INTO p_creditos_necesarios, id_carrera_curso
+        FROM curso
+        WHERE codigo_curso = p_codigo_curso;
+        
+        -- Obtener el valor de cantidad de la tabla asignado
+        SELECT cantidad INTO cantidad_asignado
+        FROM asignado
+        WHERE id_habilitado = p_id_habilitado;
+        
+        -- Verificar si el estudiante ya se encuentra asignado a este curso en esta u otra sección
+        IF EXISTS (SELECT * FROM asignacioncurso WHERE carnet = p_carnet AND id_habilitado = p_id_habilitado) THEN
+            SELECT 'El estudiante ya se encuentra asignado a este curso en esta u otra sección';
+        ELSEIF creditos_estudiante < p_creditos_necesarios THEN
+            SELECT 'El estudiante no cuenta con los créditos necesarios';
+        ELSEIF NOT (id_carrera_estudiante = id_carrera_curso OR id_carrera_curso = 0) THEN
+            SELECT 'El estudiante no pertenece a la carrera del curso';
+        ELSEIF cantidad_asignado = cupo_maximo_curso THEN
+            SELECT 'El curso ya llegó al máximo de asignados';
+        ELSE
+            -- Insertar el registro en la tabla asignacioncurso si todas las validaciones son exitosas
+            INSERT INTO asignacioncurso (id_habilitado, carnet)
+            VALUES (p_id_habilitado, p_carnet);
+
+            UPDATE asignado
+            SET cantidad = cantidad + 1
+            WHERE id_habilitado = p_id_habilitado;
+
+            SELECT 'Curso asignado al estudiante con éxito';
+        END IF;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE desasignarCurso(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_seccion CHAR(1),
+    IN p_carnet BIGINT
+)
+BEGIN
+    DECLARE p_id_habilitado INT;
+    
+    IF NOT EXISTS (
+        SELECT * FROM estudiante
+        WHERE carnet = p_carnet
+    ) THEN
+        SELECT 'El estudiante con ese carnet no existe en la tabla estudiante';
+    ELSEIF NOT EXISTS (
+        SELECT *
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso AND anio = YEAR(CURDATE())
+    ) THEN
+        SELECT 'No hay curso habilitado con las características proporcionadas';
+    ELSE
+        
+        SELECT id_habilitado INTO p_id_habilitado
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso;
+        
+        -- Verificar si el estudiante ya se encuentra asignado a este curso en esta u otra sección
+        IF NOT EXISTS (SELECT * FROM asignacioncurso WHERE carnet = p_carnet AND id_habilitado = p_id_habilitado) THEN
+            SELECT 'El estudiante NO se encuentra asignado a este curso en esta u otra sección';
+        ELSE
+            -- Insertar el registro en la tabla asignacioncurso si todas las validaciones son exitosas
+            INSERT INTO desasignacioncurso (id_habilitado, carnet)
+            VALUES (p_id_habilitado, p_carnet);
+
+            DELETE FROM asignacioncurso
+            WHERE carnet = p_carnet AND id_habilitado = p_id_habilitado;
+
+            UPDATE asignado
+            SET cantidad = cantidad - 1
+            WHERE id_habilitado = p_id_habilitado;
+
+            SELECT 'Curso desasignado al estudiante con éxito';
+        END IF;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE ingresarNota(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_seccion CHAR(1),
+    IN p_carnet BIGINT,
+    IN p_nota DECIMAL(5, 2)
+)
+BEGIN
+    DECLARE p_id_habilitado INT;
+    DECLARE p_nota_redondeada INT;
+    DECLARE p_creditos_otorga INT;
+    
+    IF NOT EXISTS (
+        SELECT * FROM estudiante
+        WHERE carnet = p_carnet
+    ) THEN
+        SELECT 'El estudiante con ese carnet no existe en la tabla estudiante';
+    ELSEIF NOT EXISTS (
+        SELECT *
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso AND anio = YEAR(CURDATE())
+    ) THEN
+        SELECT 'No hay curso habilitado con las características proporcionadas';
+    ELSE
+        
+        SELECT id_habilitado INTO p_id_habilitado
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso;
+        SET p_nota_redondeada = ROUND(p_nota);
+
+        SELECT creditos_otorga INTO p_creditos_otorga
+        FROM curso
+        WHERE codigo_curso = p_codigo_curso;
+        
+        -- Verificar si el estudiante ya se encuentra asignado a este curso en esta u otra sección
+        IF NOT EXISTS (SELECT * FROM asignacioncurso WHERE carnet = p_carnet AND id_habilitado = p_id_habilitado) THEN
+            SELECT 'El estudiante NO se encuentra asignado a este curso en esta u otra sección';
+        ELSEIF p_nota_redondeada < 0 THEN
+            SELECT 'La nota no puede ser negativa';
+        ELSEIF EXISTS (SELECT * FROM nota WHERE carnet = p_carnet AND id_habilitado = p_id_habilitado) THEN
+            SELECT 'Ya hay una nota cargada para este estudiante';
+        ELSE
+            -- Insertar el registro en la tabla nota
+            INSERT INTO nota (nota, id_habilitado, carnet)
+            VALUES (p_nota_redondeada, p_id_habilitado, p_carnet);  
+
+            IF p_nota_redondeada >= 61 THEN
+                -- Sumar p_creditos_otorga a los créditos del estudiante
+                UPDATE estudiante
+                SET creditos = creditos + p_creditos_otorga
+                WHERE carnet = p_carnet;
+            END IF;
+
+            SELECT 'Nota cargada correctamente al estudiante';
+        END IF;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE generarActa(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_seccion CHAR(1)
+)
+BEGIN
+    DECLARE p_id_habilitado INT;
+    DECLARE contador_actual INT;
+    DECLARE contador_notas INT;
+    
+    IF NOT EXISTS (
+        SELECT *
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso AND anio = YEAR(CURDATE())
+    ) THEN
+        SELECT 'No hay curso habilitado con las características proporcionadas';
+    ELSE
+        
+        SELECT id_habilitado INTO p_id_habilitado
+        FROM cursohabilitado
+        WHERE ciclo = p_ciclo AND seccion = p_seccion AND codigo_curso = p_codigo_curso;
+
+        SELECT cantidad INTO contador_actual
+        FROM asignado
+        WHERE id_habilitado = p_id_habilitado;
+
+        SELECT COUNT(*) INTO contador_notas
+        FROM nota
+        WHERE id_habilitado = p_id_habilitado;
+        
+        IF EXISTS (SELECT * FROM acta WHERE id_habilitado = p_id_habilitado) THEN
+            SELECT 'Ya hay una acta cargada para este curso';
+        ELSEIF (contador_actual != contador_notas) THEN
+            SELECT 'No se han cargado las notas de todos los estudiantes';
+        ELSE
+            
+            -- Insertar el registro en la tabla acta
+            INSERT INTO acta (fecha, hora, id_habilitado)
+            VALUES (CURDATE(), CURTIME(), p_id_habilitado);
+            
+            SELECT 'Acta cargada correctamente';
+        END IF;
+    END IF;
+END //
+
 DELIMITER ;
