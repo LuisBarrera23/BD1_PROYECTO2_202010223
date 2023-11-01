@@ -46,3 +46,27 @@ OR BINARY ciclo= 'VD'
 OR BINARY ciclo= 'VJ', TRUE, FALSE);
 END $$
 DELIMITER ;
+
+
+
+
+DELIMITER //
+
+CREATE FUNCTION ValidateDate(inputDate VARCHAR(10)) RETURNS BOOLEAN
+DETERMINISTIC
+NO SQL
+BEGIN
+    DECLARE validDate BOOLEAN;
+    SET validDate = FALSE;
+
+    IF CHAR_LENGTH(inputDate) = 10 THEN
+        IF inputDate REGEXP '^[0-3][0-9]-[0-1][0-9]-[0-9]{4}$' THEN
+            SET validDate = TRUE; -- La fecha es válida.
+        END IF;
+    END IF;
+
+    RETURN validDate;
+END;
+//
+
+DELIMITER ;

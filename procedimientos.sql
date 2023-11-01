@@ -41,6 +41,8 @@ BEGIN
         SELECT 'Correo no valido';
     ELSEIF EXISTS (SELECT * FROM estudiante WHERE carnet = p_carnet) THEN
         SELECT 'Ya existe un estudiante con ese carnet';
+    ELSEIF NOT (ValidateDate(p_fecha_nac)) THEN
+        SELECT 'Formato de fecha no valido';
 	ELSEIF NOT EXISTS (SELECT * FROM carrera WHERE id_carrera = p_id_carrera) THEN
 		SELECT 'No existe el id de la carrera ingresada';
     ELSE
@@ -77,6 +79,8 @@ BEGIN
         SELECT 'Correo no valido';
     ELSEIF EXISTS (SELECT * FROM docente WHERE siif = p_siif) THEN
         SELECT 'Ya existe un docente con ese siif';
+    ELSEIF NOT (ValidateDate(p_fecha_nac)) THEN
+        SELECT 'Formato de fecha no valido';
     ELSE
         
         SET fecha = ConvertirFecha(p_fecha_nac);
@@ -357,7 +361,10 @@ BEGIN
     DECLARE p_id_habilitado INT;
     DECLARE p_nota_redondeada INT;
     DECLARE p_creditos_otorga INT;
+    DECLARE p_anio INT;
     
+    SET p_anio = YEAR(CURDATE());
+
     IF NOT EXISTS (
         SELECT * FROM estudiante
         WHERE carnet = p_carnet
@@ -388,9 +395,10 @@ BEGIN
         ELSEIF EXISTS (SELECT * FROM nota WHERE carnet = p_carnet AND id_habilitado = p_id_habilitado) THEN
             SELECT 'Ya hay una nota cargada para este estudiante';
         ELSE
+            
             -- Insertar el registro en la tabla nota
-            INSERT INTO nota (nota, id_habilitado, carnet)
-            VALUES (p_nota_redondeada, p_id_habilitado, p_carnet);  
+            INSERT INTO nota (nota, id_habilitado, anio, carnet)
+            VALUES (p_nota_redondeada, p_id_habilitado, p_anio, p_carnet);  
 
             IF p_nota_redondeada >= 61 THEN
                 -- Sumar p_creditos_otorga a los créditos del estudiante
@@ -458,3 +466,238 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- AREA DE CONSULTAS ===============================================================================
+
+DELIMITER //
+
+CREATE PROCEDURE consultarPensum(
+    IN p_id_carrera INT
+)
+BEGIN
+    -- Consulta los cursos de la carrera específica
+    SELECT codigo_curso, nombre, creditos_necesarios,
+           CASE WHEN obligatorio = 1 THEN 'Sí' ELSE 'No' END AS obligatorio
+    FROM curso
+    WHERE id_carrera = p_id_carrera OR id_carrera = 0;
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE consultarEstudiante(
+    IN p_carnet BIGINT
+)
+BEGIN
+    DECLARE v_nombre_completo VARCHAR(200);
+    DECLARE v_carrera_nombre VARCHAR(100);
+
+    SELECT CONCAT(nombres, ' ', apellidos) INTO v_nombre_completo
+    FROM estudiante
+    WHERE carnet = p_carnet;
+
+    SELECT nombre INTO v_carrera_nombre
+    FROM carrera
+    WHERE id_carrera = (SELECT id_carrera FROM estudiante WHERE carnet = p_carnet);
+
+    SELECT carnet, v_nombre_completo AS "Nombre completo", fecha_nac, correo, telefono, direccion, dpi, v_carrera_nombre AS "Carrera", creditos
+    FROM estudiante
+    WHERE carnet = p_carnet;
+END //
+
+DELIMITER ;
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE consultarDocente(
+    IN p_siif INT
+)
+BEGIN
+    DECLARE v_nombre_completo VARCHAR(200);
+
+    SELECT CONCAT(nombres, ' ', apellidos) INTO v_nombre_completo
+    FROM docente
+    WHERE siif = p_siif;
+
+    SELECT siif, v_nombre_completo AS "Nombre", fecha_nac AS 'Fecha_de_nacimiento', correo, telefono, direccion, dpi
+    FROM docente
+    WHERE siif = p_siif;
+END //
+
+DELIMITER ;
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAsignados(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_anio INT,
+    IN p_seccion CHAR(1)
+)
+BEGIN
+    -- Declaración de variables
+    DECLARE v_id_habilitado INT;
+
+    -- Obtener id_habilitado con los parámetros proporcionados
+    SELECT id_habilitado INTO v_id_habilitado
+    FROM cursohabilitado
+    WHERE codigo_curso = p_codigo_curso
+    AND ciclo = p_ciclo
+    AND anio = p_anio
+    AND seccion = p_seccion;
+
+    IF v_id_habilitado IS NULL THEN
+        SELECT 'No se encontró un curso habilitado con esos parámetros.';
+    ELSE
+        SELECT e.carnet, CONCAT(e.nombres, ' ', e.apellidos) AS nombre_completo, e.creditos
+        FROM estudiante e
+        JOIN asignacioncurso a ON e.carnet = a.carnet
+        WHERE a.id_habilitado = v_id_habilitado;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE consultarAprobacion(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_anio INT,
+    IN p_seccion CHAR(1)
+)
+BEGIN
+    -- Declaración de variables
+    DECLARE v_id_habilitado INT;
+
+    -- Obtener id_habilitado con los parámetros proporcionados
+    SELECT id_habilitado INTO v_id_habilitado
+    FROM cursohabilitado
+    WHERE codigo_curso = p_codigo_curso
+    AND ciclo = p_ciclo
+    AND anio = p_anio
+    AND seccion = p_seccion;
+
+    IF v_id_habilitado IS NULL THEN
+        SELECT 'No se encontró un curso habilitado con esos parámetros.';
+    ELSE
+        -- Consultar la aprobación de los estudiantes
+        SELECT c.codigo_curso, e.carnet, CONCAT(e.nombres, ' ', e.apellidos) AS nombre_completo,
+        CASE
+            WHEN n.nota >= 61 THEN 'APROBADO'
+            ELSE 'DESAPROBADO'
+        END AS estado_aprobacion
+        FROM estudiante e
+        JOIN nota n ON e.carnet = n.carnet
+        JOIN cursohabilitado c ON n.id_habilitado = c.id_habilitado
+        WHERE c.id_habilitado = v_id_habilitado;
+    END IF;
+END //
+
+DELIMITER ;
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE consultarActas(
+    IN p_codigo_curso INT
+)
+BEGIN
+    -- Consultar actas
+    SELECT c.codigo_curso, ch.seccion, 
+           CASE ch.ciclo
+               WHEN '1S' THEN 'PRIMER SEMESTRE'
+               WHEN '2S' THEN 'SEGUNDO SEMESTRE'
+               WHEN 'VJ' THEN 'VACACIONES DE JUNIO'
+               WHEN 'VD' THEN 'VACACIONES DE DICIEMBRE'
+               ELSE ch.ciclo
+           END AS ciclo,
+           ch.anio,
+           asig.cantidad AS cantidad_estudiantes,
+           a.fecha, a.hora
+    FROM cursohabilitado ch
+    INNER JOIN curso c ON ch.codigo_curso = c.codigo_curso
+    LEFT JOIN asignado asig ON ch.id_habilitado = asig.id_habilitado
+    INNER JOIN acta a ON ch.id_habilitado = a.id_habilitado
+    WHERE c.codigo_curso = p_codigo_curso
+    ORDER BY a.fecha, a.hora;
+END //
+
+DELIMITER ;
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE consultarDesasignacion(
+    IN p_codigo_curso INT,
+    IN p_ciclo VARCHAR(10),
+    IN p_anio INT,
+    IN p_seccion CHAR(1)
+)
+BEGIN
+    DECLARE p_id_habilitado INT;
+    DECLARE cantidad_asignados INT;
+    DECLARE cantidad_desasignados INT;
+    DECLARE porcentaje_desasignacion DECIMAL(5, 2);
+    
+    -- Obtener el id_habilitado
+    SELECT id_habilitado INTO p_id_habilitado
+    FROM cursohabilitado
+    WHERE codigo_curso = p_codigo_curso AND ciclo = p_ciclo AND anio = p_anio AND seccion = p_seccion;
+
+    -- Contar la cantidad de estudiantes asignados
+    SELECT cantidad INTO cantidad_asignados
+    FROM asignado
+    WHERE id_habilitado = p_id_habilitado;
+
+    -- Contar la cantidad de estudiantes desasignados
+    SELECT COUNT(*) INTO cantidad_desasignados
+    FROM desasignacioncurso
+    WHERE id_habilitado = p_id_habilitado;
+
+    -- Calcular el porcentaje de desasignación
+    SET porcentaje_desasignacion=0;
+    IF (cantidad_asignados != 0) THEN
+		SET porcentaje_desasignacion = (cantidad_desasignados / cantidad_asignados) * 100;
+	ELSEIF (cantidad_asignados = 0 AND cantidad_desasignados !=0)THEN
+		SET porcentaje_desasignacion = 100;
+    END IF;
+
+    -- Generar los resultados
+    SELECT
+        p_codigo_curso AS 'Código de curso',
+        p_seccion AS 'Sección',
+        CASE
+            WHEN p_ciclo = '1S' THEN 'PRIMER SEMESTRE'
+            WHEN p_ciclo = '2S' THEN 'SEGUNDO SEMESTRE'
+            WHEN p_ciclo = 'VJ' THEN 'VACACIONES DE JUNIO'
+            WHEN p_ciclo = 'VD' THEN 'VACACIONES DE DICIEMBRE'
+            ELSE p_ciclo
+        END AS 'Ciclo',
+        p_anio AS 'Año',
+        cantidad_asignados AS 'Cantidad de estudiantes asignados',
+        cantidad_desasignados AS 'Cantidad de estudiantes desasignados',
+        porcentaje_desasignacion AS 'Porcentaje de desasignación';
+END //
+
+DELIMITER ;
+

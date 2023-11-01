@@ -74,7 +74,3 @@ CALL crearCurso(422,'Curso Electronica 2',4,4,4,true);
 CALL crearCurso(423,'Curso Electronica 3',8,4,4,false);
 CALL crearCurso(424,'Curso Electronica 4',12,4,4,true);
 CALL crearCurso(425,'Curso Electronica 5',16,4,4,true);
-
-
-
-CALL habilitarCurso(960,"VJ",5,10,"F");

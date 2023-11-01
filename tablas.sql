@@ -99,6 +99,7 @@ BEGIN
         id_nota INT AUTO_INCREMENT NOT NULL,
         nota INT NOT NULL,
         id_habilitado INT NOT NULL,
+        anio INT NOT NULL,
         carnet BIGINT NOT NULL,
         PRIMARY KEY (id_nota),
         FOREIGN KEY (id_habilitado) REFERENCES cursohabilitado (id_habilitado),
