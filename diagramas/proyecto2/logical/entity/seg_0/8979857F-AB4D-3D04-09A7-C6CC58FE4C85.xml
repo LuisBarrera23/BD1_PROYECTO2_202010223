@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="8979857F-AB4D-3D04-09A7-C6CC58FE4C85" name="CURSO">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:15:10 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="codigo_curso" id="B6DC6B07-8777-1437-7186-1966566B031E">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:15:26 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="683E23C0-BD68-856C-C398-0FF42ED0855A">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:17:51 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="creditos_necesarios" id="64B22ED3-40F7-47AD-398B-BD705A80E944">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:18:06 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="creditos_otorga" id="35DDC826-CB25-2139-F6AA-A7EADB5ACA28">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:18:42 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="obligatorio" id="9A3FEA18-A329-671D-C372-6FCF610393F3">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:19:06 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_carrera" id="E31523EC-AF33-6450-1E47-45D5B028078B">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:51:30 UTC</createdTime>
+<generatorID>A52B2A56-5EB2-128A-2987-0AED973F0F4B</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<referedAttribute>42B53E2B-32F4-1628-0D9A-602627390BAC</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="A2447341-C832-A69E-9732-19677C1D90B7" name="CURSO PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:15:38 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>B6DC6B07-8777-1437-7186-1966566B031E</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

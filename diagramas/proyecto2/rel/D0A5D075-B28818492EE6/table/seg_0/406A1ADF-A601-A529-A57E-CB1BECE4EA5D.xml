@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="406A1ADF-A601-A529-A57E-CB1BECE4EA5D" name="ASIGNADO">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>CF35C99F-D57E-019E-0477-74FA49255347</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_asignado" id="01BB1B82-B8D3-703D-F3E1-E0659EB189D3">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>9659A601-46CF-AE85-A8EF-581D5B95B9EA</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cantidad" id="BC796881-C52F-435E-FC70-9F83C2A947F9">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>FAEB8B95-1782-EF6D-EE72-07E9F00C0F13</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CURSOHABILITADO_id_habilitado" id="94435C5E-28F3-13D5-0E6B-C50C9BB3180E">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>DC6FB1FF-FC71-5BBB-FABE-51A77619D6B8</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C42351C7-2AD5-4E1E-B0C0-462C2F8CDF2C" referredColumn="EA23FC5E-CF8D-C97A-754C-59529F065538"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1F69CB39-E350-FE18-0902-9CC1AA7F5F47" name="ASIGNADO_PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>AD62A5FF-B731-FF00-53ED-14314F123F72</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="01BB1B82-B8D3-703D-F3E1-E0659EB189D3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="78E5F8DD-4200-888E-A91E-FD28CE84D55F" name="ASIGNADO_CURSOHABILITADO_FK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>12511C18-2706-BEF0-DC52-03A23C7E1ABC</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="94435C5E-28F3-13D5-0E6B-C50C9BB3180E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

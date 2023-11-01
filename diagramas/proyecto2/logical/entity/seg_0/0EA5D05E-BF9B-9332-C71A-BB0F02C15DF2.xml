@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="0EA5D05E-BF9B-9332-C71A-BB0F02C15DF2" name="DESASIGNACIONCURSO">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:41:31 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_desasignacion" id="ADB3E762-4248-1B55-D1A0-D25CBDE4A716">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:41:40 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_habilitado" id="F5E05CC8-2210-0886-3C1E-F03F101F5E84">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:57:05 UTC</createdTime>
+<generatorID>49C9051B-6448-47F1-3E34-A52B170A83C1</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<referedAttribute>B77737A8-5777-B661-C8B7-388A86A1367A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="BEDFC1A4-3AA2-E9F5-5DFB-DEC2C67ECED6" name="DESASIGNACIONCURSO PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:41:58 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>ADB3E762-4248-1B55-D1A0-D25CBDE4A716</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

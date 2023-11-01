@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F84C4095-022D-98CE-53DE-876C07EA2EBC" name="DESASIGNACIONCURSO">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>0EA5D05E-BF9B-9332-C71A-BB0F02C15DF2</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_desasignacion" id="71C89457-DDFB-EF96-C504-138ADFECDCA2">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>ADB3E762-4248-1B55-D1A0-D25CBDE4A716</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CURSOHABILITADO_id_habilitado" id="97E0C18A-4DF6-94AC-C9DC-9B977ABBD504">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>F5E05CC8-2210-0886-3C1E-F03F101F5E84</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A78F053D-795D-EB44-432B-0B95555DFE86" referredColumn="EA23FC5E-CF8D-C97A-754C-59529F065538"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="2273AEE1-AB90-CEA8-7A4B-2C08B38DB65C" name="DESASIGNACIONCURSO_PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>BEDFC1A4-3AA2-E9F5-5DFB-DEC2C67ECED6</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="71C89457-DDFB-EF96-C504-138ADFECDCA2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CA42C7A0-D8C1-1927-1A2A-62DC8610860D" name="DESASIGNACIONCURSO_CURSOHABILITADO_FK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>49C9051B-6448-47F1-3E34-A52B170A83C1</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="97E0C18A-4DF6-94AC-C9DC-9B977ABBD504"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

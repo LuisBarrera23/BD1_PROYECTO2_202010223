@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="EBF3AC97-9B8A-E57B-C9D8-C01627F92F51" name="ASIGNACIONCURSO">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:39:55 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id_asignacion" id="DB5AFA72-0020-85B7-F24C-CF749E59C9CB">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:40:07 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id_habilitado" id="A0B1F27C-AB33-51FF-BB3E-B8421EC44E4E">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:56:29 UTC</createdTime>
+<generatorID>29DAB6ED-2D4E-D0E2-F630-417C266B09C9</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<referedAttribute>B77737A8-5777-B661-C8B7-388A86A1367A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D3DB5692-8DC1-A2E1-388F-3382B66A5943" name="ASIGNACIONCURSO PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 07:40:37 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<engineerTo>
+<item key="D0A5D075-666E-F10E-E73E-B28818492EE6" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>DB5AFA72-0020-85B7-F24C-CF749E59C9CB</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

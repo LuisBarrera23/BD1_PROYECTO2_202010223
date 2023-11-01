@@ -1,0 +1,146 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0212F953-FCB3-A9D4-355E-0FB9719DBDE7" name="CURSOHABILITADO">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>FE6F7F1B-4FB0-1926-ECCA-EAFCEEB8BF88</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_habilitado" id="EA23FC5E-CF8D-C97A-754C-59529F065538">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>B77737A8-5777-B661-C8B7-388A86A1367A</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ciclo" id="71249BDC-D149-3A8B-C467-4D9EDD11997B">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>C48000DA-747A-C075-B442-C0DB040E7386</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cupo_maximo" id="DC7C5054-CE01-CBC7-401F-8B8CCC7567B2">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>F24FEA43-81BE-75CB-5A41-FA5CEBDF486A</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="seccion" id="B6D7E8B5-C73A-744A-7661-C2B7E5E527E9">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>EDE3821A-14E7-EE06-5259-A51895CF362D</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="anio" id="C94D5D35-25A0-E866-D974-D07E425DB0EB">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>5A0CD914-3612-95CC-8046-A83E254ECC86</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CURSO_codigo_curso" id="DBAE6EE8-C09D-25DC-E0A9-F2A971E7C762">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>463D05A4-1A12-3109-7222-12929DB95A87</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4CCE74F9-04F0-8209-A8AA-F419AEDDBCDE" referredColumn="4DC17BEB-41C3-156D-16B4-493EB0CE1AE6"/>
+</associations>
+</Column>
+<Column name="DOCENTE_siif" id="D179EB67-05DE-0432-FD87-2B956272BC5E">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>EAA5E1AE-4061-9A5C-DFC8-CF6DC6F69D6A</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="61F75280-8B70-62FA-CF39-7889351289F1" referredColumn="A1C8649F-350D-1810-FDE5-3ED4A874EB42"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7D21A345-F392-9855-06EF-4E9EFABB2D8F" name="CURSOHABILITADO_PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>657254E5-4F9E-94DE-320E-E583844BF16E</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EA23FC5E-CF8D-C97A-754C-59529F065538"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="904079E1-29E0-DC92-19F9-C0F6DC386435" name="CURSOHABILITADO__IDX">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>A2E3B842-A6BD-13D6-2E07-3689CCEA4B6D</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="D179EB67-05DE-0432-FD87-2B956272BC5E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FDFCCED9-3C97-ACA3-8E0E-5BA1BB18DC7F" name="CURSOHABILITADO_CURSO_FK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>B727F01B-50DA-B65C-3D8D-B8B53BADDC10</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DBAE6EE8-C09D-25DC-E0A9-F2A971E7C762"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A8A6C9C0-0BF4-C376-22A7-2EBE704B32A0" name="CURSOHABILITADO_DOCENTE_FK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>A2E3B842-A6BD-13D6-2E07-3689CCEA4B6D</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D179EB67-05DE-0432-FD87-2B956272BC5E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

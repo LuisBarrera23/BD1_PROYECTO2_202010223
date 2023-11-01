@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="DCCFCC4F-0422-BEA2-9F66-1619A228D121" name="ACTA">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:46 UTC</createdTime>
+<generatorID>F97E0FBA-246A-8BE3-42DB-CA03BA6D11D3</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id_acta" id="F7970BCE-3763-2829-8FA9-9C6414E03CF5">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>4FC9A06D-A60A-02C1-6DEC-5B68DA7B3724</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="fecha" id="B5A6AA6B-9C85-B22C-3C38-FFC8BE151972">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>2CA0BF7C-A830-A17D-EEBD-7D70F3F33D3A</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="hora" id="936BB8F7-912C-7228-5ECA-0B11574D1A99">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>5C4FBEB2-79CA-4D93-8B2D-E29455593159</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CURSOHABILITADO_id_habilitado" id="28BCF534-A86A-B64D-1358-39F73864207E">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>4A29C7F5-1C8A-C59B-A4C4-599122976159</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D0CFA56D-EFBD-071F-641C-8BA7F2361ACF" referredColumn="EA23FC5E-CF8D-C97A-754C-59529F065538"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="47323D7A-7328-C4EC-8F12-0006BC479331" name="ACTA_PK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>32EF4DAD-33C4-E148-497B-77BE0262CD5E</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F7970BCE-3763-2829-8FA9-9C6414E03CF5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BFBF4485-E5B0-899B-394A-AAC0A4960225" name="ACTA__IDX">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>0A5ED126-5AE8-FAB2-52DA-91F932DEC64F</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="28BCF534-A86A-B64D-1358-39F73864207E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="83B16D19-77A6-3BBA-80ED-3D8F608CFF95" name="ACTA_CURSOHABILITADO_FK">
+<createdBy>luisb</createdBy>
+<createdTime>2023-10-26 08:11:47 UTC</createdTime>
+<generatorID>0A5ED126-5AE8-FAB2-52DA-91F932DEC64F</generatorID>
+<ownerDesignName>proyecto2</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="28BCF534-A86A-B64D-1358-39F73864207E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
