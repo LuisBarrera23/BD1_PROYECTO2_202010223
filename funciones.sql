@@ -49,23 +49,18 @@ DELIMITER ;
 
 
 
-
 DELIMITER //
 
-CREATE FUNCTION ValidateDate(inputDate VARCHAR(10)) RETURNS BOOLEAN
+CREATE FUNCTION ValidateDate(fecha VARCHAR(255)) RETURNS BOOLEAN
 DETERMINISTIC
 NO SQL
 BEGIN
-    DECLARE validDate BOOLEAN;
-    SET validDate = FALSE;
-
-    IF CHAR_LENGTH(inputDate) = 10 THEN
-        IF inputDate REGEXP '^[0-3][0-9]-[0-1][0-9]-[0-9]{4}$' THEN
-            SET validDate = TRUE; -- La fecha es válida.
-        END IF;
+    -- Validar que la fecha tenga el formato correcto
+    IF NOT REGEXP_LIKE(fecha, '^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$') THEN
+        RETURN FALSE;
     END IF;
-
-    RETURN validDate;
+    -- La fecha es válida
+    RETURN TRUE;
 END;
 //
 
